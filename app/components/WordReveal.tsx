@@ -14,6 +14,7 @@ type WordRevealOptions = {
   duration?: number;
   stagger?: number;
   distance?: number;
+  enabled?: boolean;
 };
 
 export const useWordReveal = <T extends HTMLElement>({
@@ -21,11 +22,14 @@ export const useWordReveal = <T extends HTMLElement>({
   duration = 1,
   stagger = 0.06,
   distance = 110,
+  enabled = true,
 }: WordRevealOptions = {}) => {
   const ref = useRef<T>(null);
 
   useGSAP(
     () => {
+      if (!enabled) return;
+
       const words = ref.current?.querySelectorAll<HTMLElement>(".reveal-word");
       if (!words?.length) return;
 
@@ -53,7 +57,7 @@ export const useWordReveal = <T extends HTMLElement>({
 
       return () => motion.revert();
     },
-    { scope: ref }
+    { scope: ref, dependencies: [enabled] }
   );
 
   return ref;
@@ -65,7 +69,7 @@ export const WordReveal = ({ lines }: { lines: TextLine[] }) => {
       {lines.map((line, li) => (
         <span key={li} className="block">
           {line.map((word, wi) => (
-            <span key={wi} className="inline-block overflow-hidden align-top">
+            <span key={wi} className="inline-block align-top">
               <span
                 className={`reveal-word inline-block will-change-transform ${
                   word.bold ? "font-bold" : ""

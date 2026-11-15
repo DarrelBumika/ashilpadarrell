@@ -1,7 +1,7 @@
 "use client";
 
 import { useWordReveal, WordReveal, type TextLine } from "./WordReveal";
-import Slogan from "./Slogan";
+import Slogan from "@components/Slogan";
 
 const lines: TextLine[] = [
   [
@@ -26,7 +26,7 @@ const Hero = () => {
         <h1
           ref={headingRef}
           aria-label="i design and develop products that think."
-          className="text-9xl font-light mb-4 text-black text-start leading-[0.8] tracking-[-0.06em]"
+          className="text-9xl font-light py-4 pe-4 text-black text-start leading-[0.8] tracking-[-0.06em] overflow-hidden z-1"
         >
           <WordReveal lines={lines} />
         </h1>
