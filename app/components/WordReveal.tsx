@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { useIntroRevealed } from "@components/introState";
 
 gsap.registerPlugin(useGSAP);
 
@@ -25,10 +26,12 @@ export const useWordReveal = <T extends HTMLElement>({
   enabled = true,
 }: WordRevealOptions = {}) => {
   const ref = useRef<T>(null);
+  const introRevealed = useIntroRevealed();
+  const shouldAnimate = enabled && introRevealed;
 
   useGSAP(
     () => {
-      if (!enabled) return;
+      if (!shouldAnimate) return;
 
       const words = ref.current?.querySelectorAll<HTMLElement>(".reveal-word");
       if (!words?.length) return;
@@ -57,7 +60,7 @@ export const useWordReveal = <T extends HTMLElement>({
 
       return () => motion.revert();
     },
-    { scope: ref, dependencies: [enabled] }
+    { scope: ref, dependencies: [shouldAnimate] }
   );
 
   return ref;
