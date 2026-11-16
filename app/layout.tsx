@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import Intro from "@components/Intro";
+import SmoothScroll from "@components/SmoothScroll";
 import "@app/globals.css";
 
 const nohemi = localFont({
@@ -20,9 +22,30 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${nohemi.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{if(sessionStorage.getItem("portfolio-intro-seen")){document.documentElement.dataset.intro="done"}}catch(e){}`,
+          }}
+        />
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `html[data-intro="done"] [data-intro-screen]{display:none!important}`,
+          }}
+        />
+        <noscript>
+          <style>{`[data-intro-screen]{display:none}`}</style>
+        </noscript>
+      </head>
+      <body className="min-h-full flex flex-col">
+        <SmoothScroll>
+          <Intro />
+          {children}
+        </SmoothScroll>
+      </body>
     </html>
   );
 }
