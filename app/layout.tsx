@@ -39,6 +39,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <noscript>
           <style>{`[data-intro-screen]{display:none}`}</style>
         </noscript>
+        <script
+          defer
+          src="https://analytics.ashilpadarrell.site/script.js"
+          data-website-id="17a27bbf-201f-4560-afbb-ae8943c4b114"
+        />
       </head>
       <body className="min-h-full flex flex-col">
         <SmoothScroll>
