@@ -11,7 +11,7 @@ import {
 
 gsap.registerPlugin(useGSAP);
 
-const HOLD_S = 1.5;
+const HOLD_S = 0.5;
 
 const Intro = () => {
   const [visible, setVisible] = useState(true);
@@ -89,8 +89,8 @@ const Intro = () => {
         aria-hidden
         className="fixed inset-0 z-[60] flex items-center justify-center bg-white px-6 text-black will-change-transform"
       >
-        <h1 className="text-[clamp(2.5rem,9vw,8rem)] font-light leading-[0.82] tracking-[-0.06em]">
-          <span className="block overflow-hidden pb-[0.06em]">
+        <h1 className="text-[clamp(2.5rem,6vw,8rem)] font-light leading-[0.8] tracking-[-0.06em]">
+          <span className="block overflow-hidden pt-4 pb-[0.06em]">
             <span
               ref={nameRef}
               style={{ visibility: "hidden" }}
