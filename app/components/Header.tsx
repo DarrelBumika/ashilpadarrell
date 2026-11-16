@@ -111,7 +111,7 @@ const Header = () => {
 
 	return (
 		<>
-			<header className="flex w-full items-center justify-between text-black z-10">
+			<header className="fixed inset-x-0 top-0 z-40 flex w-full items-center justify-between p-8 text-black">
 				<h1
 					ref={titleRef}
 					aria-label="a. darrell bumika"

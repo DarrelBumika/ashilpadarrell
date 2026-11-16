@@ -1,7 +1,6 @@
 "use client";
 
 import { useWordReveal, WordReveal, type TextLine } from "./WordReveal";
-import Slogan from "@components/Slogan";
 
 const lines: TextLine[] = [
   [
@@ -21,17 +20,14 @@ const Hero = () => {
   const headingRef = useWordReveal<HTMLHeadingElement>({ stagger: 0.07 });
 
   return (
-    <div className="flex flex-1 w-full flex-col justify-between text-center">
-      <div className="flex flex-1 flex-col items-start justify-center w-full">
-        <h1
-          ref={headingRef}
-          aria-label="i design and develop products that think."
-          className="text-9xl font-light py-4 pe-4 text-black text-start leading-[0.8] tracking-[-0.06em] overflow-hidden z-1"
-        >
-          <WordReveal lines={lines} />
-        </h1>
-      </div>
-      <Slogan />
+    <div className="flex w-full flex-1 flex-col justify-center">
+      <h1
+        ref={headingRef}
+        aria-label="i design and develop products that think."
+        className="text-9xl font-light py-4 pe-4 text-black text-start leading-[0.8] tracking-[-0.06em] overflow-hidden z-1"
+      >
+        <WordReveal lines={lines} />
+      </h1>
     </div>
   );
 };

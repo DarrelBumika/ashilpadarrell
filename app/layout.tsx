@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import Intro from "@components/Intro";
+import SmoothScroll from "@components/SmoothScroll";
 import "@app/globals.css";
 
 const nohemi = localFont({
@@ -40,8 +41,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </noscript>
       </head>
       <body className="min-h-full flex flex-col">
-        <Intro />
-        {children}
+        <SmoothScroll>
+          <Intro />
+          {children}
+        </SmoothScroll>
       </body>
     </html>
   );
