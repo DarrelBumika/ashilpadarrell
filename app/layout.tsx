@@ -1,22 +1,46 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
-import Intro from "@components/Intro";
+import SiteFooterProvider from "@components/SiteFooterProvider";
 import SmoothScroll from "@components/SmoothScroll";
+import Intro from "@components/intro/Intro";
+import { site } from "@content/site";
+import { isDev, isPreview, isProd } from "@lib/env";
 import "@app/globals.css";
-import { isProd, isDev, isPreview } from "@lib/env";
 
 const nohemi = localFont({
-  src: "./src/fonts/nohemi.ttf",
+  src: "../assets/fonts/nohemi.ttf",
   variable: "--font-nohemi",
+  weight: "100 900",
   display: "swap",
 });
 
+const title = isDev
+  ? `${site.firstName} [Dev]`
+  : isPreview
+    ? `${site.firstName} [Preview]`
+    : site.firstName;
+
 export const metadata: Metadata = {
-  icons: {
-    icon: "/favicon.svg",
+  metadataBase: new URL(site.url),
+  title,
+  description: site.description,
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    url: "/",
+    title,
+    description: site.description,
+    siteName: `${site.firstName} ${site.lastName}`,
   },
-  title: isDev ? "darrell [Dev]" : isPreview ? "darrell [Preview]" : "darrell",
-  description: "darrell's portfolio",
+  twitter: {
+    card: "summary",
+    title,
+    description: site.description,
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#ffffff",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -43,16 +67,18 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {isProd && (
           <script
             defer
-            src="https://analytics.ashilpadarrell.site/script.js"
-            data-website-id="17a27bbf-201f-4560-afbb-ae8943c4b114"
+            src={site.analytics.src}
+            data-website-id={site.analytics.websiteId}
           />
         )}
       </head>
       <body className="min-h-full flex flex-col">
-        <SmoothScroll>
-          <Intro />
-          {children}
-        </SmoothScroll>
+        <SiteFooterProvider>
+          <SmoothScroll>
+            <Intro />
+            {children}
+          </SmoothScroll>
+        </SiteFooterProvider>
       </body>
     </html>
   );

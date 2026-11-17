@@ -5,8 +5,9 @@ import Image from "next/image";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Hero from "@components/Hero";
-import MeImage from "@src/img/me.png";
+import Hero from "@components/sections/Hero";
+import portrait from "@assets/img/me.webp";
+import { site } from "@content/site";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -64,8 +65,10 @@ const HomeStage = () => {
           <Hero />
         </div>
         <Image
-          src={MeImage}
-          alt="line"
+          src={portrait}
+          alt={`portrait of ${site.fullName}`}
+          priority
+          sizes="(max-width: 768px) 100vw, 50vw"
           className="pointer-events-none absolute top-0 right-0 h-screen w-auto object-cover mask-[linear-gradient(to_bottom,black_20%,transparent)] [-webkit-mask-image:linear-gradient(to_bottom,black_20%,transparent)]"
         />
       </div>
