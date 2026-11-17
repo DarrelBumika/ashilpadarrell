@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import Intro from "@components/Intro";
 import SmoothScroll from "@components/SmoothScroll";
 import "@app/globals.css";
+import { isProd } from "@lib/env";
 
 const nohemi = localFont({
   src: "./src/fonts/nohemi.ttf",
@@ -39,7 +40,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <noscript>
           <style>{`[data-intro-screen]{display:none}`}</style>
         </noscript>
-        {process.env.NODE_ENV === "production" && (
+        {isProd && (
           <script
             defer
             src="https://analytics.ashilpadarrell.site/script.js"
