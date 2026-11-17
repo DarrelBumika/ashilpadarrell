@@ -20,7 +20,7 @@ const Slogan = ({ animateOnMount = true }: { animateOnMount?: boolean }) => {
     <div
       ref={sloganRef}
       aria-label="design. develop. orchestrate."
-      className="font-bold text-black text-xl leading-[0.8] tracking-[-0.06em] text-start"
+      className="font-bold text-xl leading-[0.8] tracking-[-0.06em] text-start"
     >
       <WordReveal lines={lines} />
     </div>

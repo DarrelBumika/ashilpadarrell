@@ -6,6 +6,8 @@ import { useGSAP } from "@gsap/react";
 import { WordReveal, TextLine, useWordReveal } from "@components/WordReveal";
 import Slogan from "@components/Slogan";
 
+gsap.registerPlugin(useGSAP);
+
 const title: TextLine[] = [
   [
     { text: "a." },
@@ -32,12 +34,76 @@ const Header = () => {
 	const menuRef = useWordReveal<HTMLSpanElement>({ stagger: 0.07 });
 
 	const [open, setOpen] = useState(false);
+	const headerRef = useRef<HTMLElement>(null);
 	const triggerRef = useRef<HTMLButtonElement>(null);
 	const closeRef = useRef<HTMLButtonElement>(null);
 	const menuFooterRef = useRef<HTMLDivElement>(null);
 	const emailRef = useRef<HTMLAnchorElement>(null);
 
 	const close = () => setOpen(false);
+
+	useGSAP(() => {
+		const header = headerRef.current;
+		const footer = document.querySelector<HTMLElement>("#site-footer");
+		if (!header || !footer) return;
+
+		const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+		const duration = reduced ? 0 : 0.5;
+
+		const setHidden = (hidden: boolean) => {
+			header.inert = hidden;
+			if (hidden) header.setAttribute("aria-hidden", "true");
+			else header.removeAttribute("aria-hidden");
+		};
+
+		// The footer rises over the page, so the header steps aside instead of
+		// riding along on top of it.
+		const hide = () =>
+			gsap.to(header, {
+				yPercent: -100,
+				opacity: 0,
+				duration,
+				ease: "power3.in",
+				overwrite: true,
+				onStart: () => setHidden(true),
+			});
+
+		const show = () =>
+			gsap.to(header, {
+				yPercent: 0,
+				opacity: 1,
+				duration,
+				ease: "power3.out",
+				overwrite: true,
+				onStart: () => setHidden(false),
+			});
+
+		let hidden = false;
+
+		// Measure the footer directly on scroll instead of using a cached
+		// ScrollTrigger boundary: the pinned sections above add height after
+		// mount, which can leave those boundaries stale.
+		const sync = () => {
+			const shouldHide =
+				footer.getBoundingClientRect().top <= window.innerHeight * 0.15;
+			if (shouldHide === hidden) return;
+			hidden = shouldHide;
+			if (shouldHide) hide();
+			else show();
+		};
+
+		sync();
+		window.addEventListener("scroll", sync, { passive: true });
+		window.addEventListener("resize", sync);
+
+		return () => {
+			window.removeEventListener("scroll", sync);
+			window.removeEventListener("resize", sync);
+			gsap.killTweensOf(header);
+			gsap.set(header, { clearProps: "transform,opacity" });
+			setHidden(false);
+		};
+	}, []);
 
 	useGSAP(
 		() => {
@@ -111,7 +177,9 @@ const Header = () => {
 
 	return (
 		<>
-			<header className="fixed inset-x-0 top-0 z-40 flex w-full items-center justify-between p-8 text-black">
+			<header
+				ref={headerRef}
+				className="fixed inset-x-0 top-0 z-40 flex w-full items-center justify-between p-8 text-black will-change-transform">
 				<h1
 					ref={titleRef}
 					aria-label="a. darrell bumika"
