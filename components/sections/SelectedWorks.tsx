@@ -1,17 +1,15 @@
 "use client";
 
-import { Fragment, useRef } from "react";
+import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { WordReveal } from "@components/ui/WordReveal";
+import { works, worksHeading } from "@content/works";
+import { hideForReveal } from "@lib/motion";
+import { toPlainText } from "@lib/text";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
-
-const line = [{ text: "selected" }, { text: "works", bold: true }];
-
-const works = ["ai assistant", "multi-agent system", "automation tools"];
-
-const selectedWorksText = "selected works";
 
 const SelectedWorks = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -23,9 +21,12 @@ const SelectedWorks = () => {
 
       const viewport = section.querySelector<HTMLElement>(".works-viewport");
       const track = section.querySelector<HTMLElement>(".works-track");
-      const words = section.querySelectorAll<HTMLElement>(".works-word");
       const panels = section.querySelectorAll<HTMLElement>(".works-panel");
-      if (!viewport || !track || !words.length || !panels.length) return;
+      if (!viewport || !track || !panels.length) return;
+
+      const headingWords =
+        panels[0].querySelectorAll<HTMLElement>("[data-reveal-word]");
+      if (!headingWords.length) return;
 
       const motion = gsap.matchMedia();
 
@@ -40,7 +41,7 @@ const SelectedWorks = () => {
         });
         gsap.set(panels, { width: "100vw", height: "100%", flex: "0 0 auto" });
 
-        gsap.set(words, { yPercent: 120, opacity: 0 });
+        hideForReveal(headingWords);
 
         // Timeline units, where 1 unit ≈ one screen of scroll.
         const INTRO = 1; // title reveal
@@ -49,12 +50,9 @@ const SelectedWorks = () => {
 
         const workPanels = Array.from(panels).slice(1);
         const workWords = workPanels.map((panel) =>
-          panel.querySelectorAll<HTMLElement>(".work-reveal")
+          panel.querySelectorAll<HTMLElement>("[data-reveal-word]")
         );
-        gsap.set(workWords.flatMap((list) => Array.from(list)), {
-          yPercent: 120,
-          opacity: 0,
-        });
+        hideForReveal(workWords.flatMap((list) => Array.from(list)));
 
         const total = INTRO + workPanels.length * (MOVE + HOLD);
 
@@ -73,7 +71,7 @@ const SelectedWorks = () => {
         });
 
         timeline.to(
-          words,
+          headingWords,
           {
             yPercent: 0,
             opacity: 1,
@@ -131,29 +129,16 @@ const SelectedWorks = () => {
             <div className="flex w-fit max-w-full flex-col items-center justify-center gap-2 text-center">
               <h2
                 id="works-title"
-                aria-label={selectedWorksText}
-                className="max-w-full whitespace-nowrap font-light text-[clamp(2rem,9vw,8rem)] leading-[0.8] tracking-[-0.06em]"
+                aria-label={toPlainText(worksHeading)}
+                className="max-w-full whitespace-nowrap font-light text-[clamp(2rem,9vw,8rem)] leading-flat tracking-tightest"
               >
-                <span className="works-line block">
-                  {line.map((word, wordIndex) => (
-                    <Fragment key={wordIndex}>
-                      <span
-                        className={`works-word inline-block will-change-transform ${
-                          word.bold ? "font-bold" : ""
-                        }`}
-                      >
-                        {word.text}
-                      </span>
-                      {wordIndex < line.length - 1 ? " " : null}
-                    </Fragment>
-                  ))}
-                </span>
+                <WordReveal lines={worksHeading} />
               </h2>
             </div>
           </div>
 
           {works.map((work, workIndex) => {
-            const workWords = work.split(" ");
+            const parts = work.split(" ");
 
             return (
               <article
@@ -165,22 +150,17 @@ const SelectedWorks = () => {
                   <h3
                     id={`work-${workIndex + 1}-title`}
                     aria-label={work}
-                    className="max-w-full font-light text-[clamp(2rem,9vw,16rem)] leading-[0.8] tracking-[-0.06em]"
+                    className="max-w-full font-light text-[clamp(2rem,9vw,16rem)] leading-flat tracking-tightest"
                   >
-                    {workWords.map((word, wordIndex) => (
-                      <Fragment key={wordIndex}>
-                        <span
-                          className={`work-reveal inline-block will-change-transform ${
-                            wordIndex === workWords.length - 1
-                              ? "font-bold"
-                              : ""
-                          }`}
-                        >
-                          {word}
-                        </span>
-                        {wordIndex < workWords.length - 1 ? " " : null}
-                      </Fragment>
-                    ))}
+                    <WordReveal
+                      lines={[
+                        parts.map((text, index) => ({
+                          text,
+                          bold: index === parts.length - 1,
+                        })),
+                      ]}
+                      nowrap={false}
+                    />
                   </h3>
                 </div>
               </article>

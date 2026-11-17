@@ -4,7 +4,8 @@ import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Slogan from "@components/Slogan";
+import Slogan from "@components/ui/Slogan";
+import { useSiteFooter } from "@hooks/useSiteFooter";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -14,12 +15,12 @@ const PAD = 32;
 const FloatingSlogan = () => {
   const layerRef = useRef<HTMLDivElement>(null);
   const sloganRef = useRef<HTMLDivElement>(null);
+  const { footer } = useSiteFooter();
 
   useGSAP(
     () => {
       const layer = layerRef.current;
       const slogan = sloganRef.current;
-      const footer = document.querySelector<HTMLElement>("#site-footer");
       if (!layer || !slogan || !footer) return;
 
       const setY = gsap.quickSetter(layer, "y", "px");
@@ -68,7 +69,7 @@ const FloatingSlogan = () => {
         trigger.kill();
       };
     },
-    { scope: layerRef }
+    { scope: layerRef, dependencies: [footer] }
   );
 
   return (

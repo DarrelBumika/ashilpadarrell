@@ -4,6 +4,7 @@ import { useEffect, type ReactNode } from "react";
 import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { registerScrollController } from "@lib/scrollLock";
 import "lenis/dist/lenis.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -19,6 +20,7 @@ const SmoothScroll = ({ children }: { children: ReactNode }) => {
       respectReducedMotion: true,
     });
 
+    registerScrollController(lenis);
     lenis.on("scroll", ScrollTrigger.update);
 
     // Drive Lenis from GSAP's ticker so scroll and animations share one loop.
@@ -32,6 +34,7 @@ const SmoothScroll = ({ children }: { children: ReactNode }) => {
     return () => {
       window.removeEventListener("load", refresh);
       gsap.ticker.remove(update);
+      registerScrollController(null);
       lenis.destroy();
     };
   }, []);
