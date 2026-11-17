@@ -10,6 +10,9 @@ export const site = {
   fullName: "ashilpa darrel bumika",
   email: "hello@ashilpadarrell.site",
   url: "https://ashilpadarrell.site",
+  /** Full, descriptive title used by search engines and social previews. */
+  metaTitle: "darrell",
+  jobTitle: "Digital Designer, Software Developer & AI Engineer",
   description:
     "Portfolio of ashilpa darrell bumika — digital designer, software developer, and ai engineer.",
   phone: {
