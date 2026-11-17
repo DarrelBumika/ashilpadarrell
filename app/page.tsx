@@ -1,19 +1,26 @@
 import About from "@components/About";
+import FloatingSlogan from "@components/FloatingSlogan";
 import Header from "@components/Header";
 import HomeStage from "@components/HomeStage";
 import SelectedWorks from "@components/SelectedWorks";
-import Slogan from "@components/Slogan";
+import Footer from "@components/Footer";
 
-export default function Home() {
+async function copyrightYear() {
+  "use cache";
+  return new Date().getFullYear();
+}
+
+export default async function Home() {
+  const year = await copyrightYear();
+
   return (
     <div className="flex flex-1 flex-col bg-white">
       <Header />
       <HomeStage />
       <About />
       <SelectedWorks />
-      <div className="pointer-events-none fixed inset-x-0 bottom-0 z-30 p-8">
-        <Slogan />
-      </div>
+      <FloatingSlogan />
+      <Footer year={year} />
     </div>
   );
 }
