@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import SiteFooterProvider from "@components/SiteFooterProvider";
 import SmoothScroll from "@components/SmoothScroll";
 import Intro from "@components/intro/Intro";
+import StructuredData from "@components/StructuredData";
 import { site } from "@content/site";
 import { isDev, isPreview, isProd } from "@lib/env";
 import "@app/globals.css";
@@ -14,16 +15,27 @@ const nohemi = localFont({
   display: "swap",
 });
 
-const title = isDev
-  ? `${site.firstName} [Dev]`
-  : isPreview
-    ? `${site.firstName} [Preview]`
-    : site.firstName;
+const environmentSuffix = isDev ? " [Dev]" : isPreview ? " [Preview]" : "";
+const title = `${site.metaTitle}${environmentSuffix}`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title,
   description: site.description,
+  applicationName: `${site.firstName} ${site.lastName}`,
+  authors: [{ name: site.fullName, url: site.url }],
+  creator: site.fullName,
+  category: "Portfolio",
+  keywords: [
+    site.fullName,
+    "digital designer",
+    "software developer",
+    "ai engineer",
+    "portfolio",
+  ],
+  robots: isProd
+    ? { index: true, follow: true }
+    : { index: false, follow: false },
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
@@ -31,9 +43,10 @@ export const metadata: Metadata = {
     title,
     description: site.description,
     siteName: `${site.firstName} ${site.lastName}`,
+    locale: "en_US",
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title,
     description: site.description,
   },
@@ -51,6 +64,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${nohemi.variable} h-full antialiased`}
     >
       <head>
+        <StructuredData />
         <script
           dangerouslySetInnerHTML={{
             __html: `try{if(sessionStorage.getItem("portfolio-intro-seen")){document.documentElement.dataset.intro="done"}}catch(e){}`,
@@ -73,6 +87,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         )}
       </head>
       <body className="min-h-full flex flex-col">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:bg-white focus:px-4 focus:py-2 focus:text-black"
+        >
+          skip to content
+        </a>
         <SiteFooterProvider>
           <SmoothScroll>
             <Intro />

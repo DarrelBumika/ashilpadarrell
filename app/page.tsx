@@ -14,13 +14,13 @@ export default async function Home() {
   const year = await copyrightYear();
 
   return (
-    <div className="flex flex-1 flex-col bg-white">
+    <main id="main" className="flex flex-1 flex-col bg-white">
       <Header />
       <HomeStage />
       <About />
       <SelectedWorks />
       <FloatingSlogan />
       <Footer year={year} />
-    </div>
+    </main>
   );
 }
