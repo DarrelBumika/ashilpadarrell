@@ -3,11 +3,13 @@
 import { useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { site } from "@content/site";
 import {
   isIntroRevealed,
   markIntroComplete,
   markIntroRevealed,
-} from "@components/introState";
+} from "@lib/introState";
+import { prefersReducedMotion } from "@lib/motion";
 
 gsap.registerPlugin(useGSAP);
 
@@ -29,10 +31,6 @@ const Intro = () => {
       const name = nameRef.current;
       if (!panel || !backdrop || !name) return;
 
-      const reduced = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-      ).matches;
-
       const timeline = gsap.timeline({
         onComplete: () => {
           markIntroComplete();
@@ -40,7 +38,7 @@ const Intro = () => {
         },
       });
 
-      if (reduced) {
+      if (prefersReducedMotion()) {
         timeline
           .set(name, { yPercent: 0, visibility: "visible" })
           .call(markIntroRevealed, undefined, "+=0.6")
@@ -58,11 +56,7 @@ const Intro = () => {
         .to(name, { yPercent: 0, duration: 0.9, ease: "power4.out" })
         .call(markIntroRevealed, undefined, `+=${HOLD_S}`)
         .to(name, { yPercent: -35, duration: 0.9, ease: "power2.in" }, "<")
-        .to(
-          panel,
-          { yPercent: -100, duration: 0.9, ease: "power4.inOut" },
-          "<"
-        )
+        .to(panel, { yPercent: -100, duration: 0.9, ease: "power4.inOut" }, "<")
         .to(
           backdrop,
           { yPercent: -100, duration: 0.9, ease: "power4.inOut" },
@@ -89,17 +83,18 @@ const Intro = () => {
         aria-hidden
         className="fixed inset-0 z-[60] flex items-center justify-center bg-white px-6 text-black will-change-transform"
       >
-        <h1 className="text-[clamp(2.5rem,6vw,8rem)] font-light leading-[0.8] tracking-[-0.06em]">
+        <p className="text-[clamp(2.5rem,6vw,8rem)] font-light leading-flat tracking-tightest">
           <span className="block overflow-hidden pt-4 pb-[0.06em]">
             <span
               ref={nameRef}
               style={{ visibility: "hidden" }}
               className="block will-change-transform"
             >
-              a. <span className="font-bold">darrell</span> bumika
+              a. <span className="font-bold">{site.firstName}</span>{" "}
+              {site.lastName}
             </span>
           </span>
-        </h1>
+        </p>
       </div>
     </>
   );

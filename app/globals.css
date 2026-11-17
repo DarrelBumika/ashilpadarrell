@@ -11,6 +11,16 @@
   --font-sans: var(--font-nohemi);
 }
 
+/*
+ * Display typography: every heading on the site uses one flat leading and one
+ * tight tracking. Keeping them as tokens stops the two literals from drifting
+ * apart across components.
+ */
+@theme {
+  --leading-flat: 0.8;
+  --tracking-tightest: -0.06em;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;

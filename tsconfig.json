@@ -20,11 +20,12 @@
     ],
     "paths": {
       "@/*": ["./*"],
-      "@components/*": ["./app/components/*"],
       "@app/*": ["./app/*"],
-      "@public/*": ["./public/*"],
-      "@src/*": ["./app/src/*"],
-      "@lib/*": ["./app/lib/*"]
+      "@components/*": ["./components/*"],
+      "@content/*": ["./app/content/*"],
+      "@hooks/*": ["./hooks/*"],
+      "@lib/*": ["./lib/*"],
+      "@assets/*": ["./assets/*"]
     }
   },
   "include": [

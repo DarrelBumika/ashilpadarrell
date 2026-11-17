@@ -1,9 +1,9 @@
-import About from "@components/About";
-import FloatingSlogan from "@components/FloatingSlogan";
-import Header from "@components/Header";
-import HomeStage from "@components/HomeStage";
-import SelectedWorks from "@components/SelectedWorks";
-import Footer from "@components/Footer";
+import About from "@components/sections/About";
+import FloatingSlogan from "@components/ui/FloatingSlogan";
+import Footer from "@components/sections/Footer";
+import Header from "@components/sections/Header";
+import HomeStage from "@components/sections/HomeStage";
+import SelectedWorks from "@components/sections/SelectedWorks";
 
 async function copyrightYear() {
   "use cache";
