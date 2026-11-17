@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 import Intro from "@components/Intro";
 import SmoothScroll from "@components/SmoothScroll";
 import "@app/globals.css";
-import { isProd } from "@lib/env";
+import { isProd, isDev, isPreview } from "@lib/env";
 
 const nohemi = localFont({
   src: "./src/fonts/nohemi.ttf",
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.svg",
   },
-  title: "darrell",
+  title: isDev ? "darrell [Dev]" : isPreview ? "darrell [Preview]" : "darrell",
   description: "darrell's portfolio",
 };
 
