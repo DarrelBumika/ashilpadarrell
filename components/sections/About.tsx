@@ -72,13 +72,13 @@ const About = () => {
       ref={sectionRef}
       id="about"
       aria-labelledby="about-title"
-      className="relative z-10 flex h-dvh w-full justify-center bg-white px-8 pt-24 pb-40 text-black sm:pt-32 sm:pb-48 scroll-mt-[-100dvh]"
+      className="relative z-10 flex min-h-dvh w-full justify-center bg-white px-5 pt-20 pb-28 text-black sm:px-8 sm:pt-32 sm:pb-48 scroll-mt-[-100dvh]"
     >
       <div className="flex w-fit max-w-full flex-col justify-center items-start gap-2 text-start">
         <h2
           id="about-title"
           aria-label={`${aboutKicker} ${toPlainText(aboutLines)}`}
-          className="max-w-full font-light text-[clamp(2rem,9vw,8rem)] leading-flat tracking-tightest"
+          className="max-w-full font-light text-display leading-flat tracking-tightest"
         >
           <span className="about-kicker mb-2 block text-[clamp(1.25rem,3vw,3rem)] leading-none tracking-tightest">
             {aboutKicker}

@@ -8,11 +8,11 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <main className="flex min-h-dvh flex-col justify-between bg-black p-8 text-white">
+    <main className="flex min-h-dvh flex-col justify-between bg-black p-5 text-white sm:p-8">
       <p className="text-xl font-light tracking-tightest">404</p>
 
       <div>
-        <h1 className="font-light text-[clamp(2rem,9vw,8rem)] leading-flat tracking-tightest">
+        <h1 className="font-light text-display leading-flat tracking-tightest">
           nothing <span className="font-bold">here.</span>
         </h1>
         <p className="mt-6 text-sm text-white/50">

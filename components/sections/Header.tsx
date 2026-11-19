@@ -202,7 +202,7 @@ const Header = () => {
     <>
       <header
         ref={headerRef}
-        className="fixed inset-x-0 top-0 z-40 flex w-full items-center justify-between p-8 text-black will-change-transform"
+        className="fixed inset-x-0 top-0 z-40 flex w-full items-center justify-between p-5 text-black will-change-transform sm:p-8"
       >
         <p
           ref={titleRef}
@@ -217,7 +217,7 @@ const Header = () => {
           aria-label="open menu"
           aria-expanded={open}
           aria-controls="site-menu"
-          className="cursor-pointer"
+          className="-my-3 cursor-pointer py-3"
         >
           <span
             ref={menuRef}
@@ -248,7 +248,7 @@ const Header = () => {
           role="dialog"
           aria-modal="true"
           aria-label="menu"
-          className={`absolute top-0 right-0 flex h-full w-1/2 flex-col justify-between bg-white px-5 py-6 text-black sm:px-8 sm:py-8 transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] ${
+          className={`absolute top-0 right-0 flex h-dvh w-full flex-col justify-between overflow-y-auto overscroll-contain bg-white px-5 py-6 text-black transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] sm:w-1/2 sm:px-8 sm:py-8 ${
             open ? "translate-x-0" : "translate-x-full"
           }`}
         >
@@ -258,14 +258,14 @@ const Header = () => {
               type="button"
               onClick={close}
               aria-label="close menu"
-              className="cursor-pointer text-xl font-light tracking-tightest pe-2"
+              className="-my-3 cursor-pointer py-3 pe-2 text-xl font-light tracking-tightest"
             >
               close
             </button>
           </div>
 
           <nav aria-label="main">
-            <ul className="flex flex-col">
+            <ul className="flex flex-col gap-3 sm:gap-0">
               {sections.map((link, index) => (
                 <li
                   key={link.href}
@@ -281,7 +281,7 @@ const Header = () => {
                   <a
                     href={link.href}
                     onClick={close}
-                    className="flex items-baseline gap-2 text-3xl font-light leading-flat tracking-tightest sm:gap-3 sm:text-5xl lg:text-9xl"
+                    className="flex items-baseline gap-2 py-2 text-4xl font-light leading-flat tracking-tightest sm:gap-3 sm:py-0 sm:text-5xl lg:text-9xl"
                   >
                     {link.label}
                   </a>
@@ -290,12 +290,15 @@ const Header = () => {
             </ul>
           </nav>
 
-          <div ref={menuFooterRef} className="flex justify-between items-end">
+          <div
+            ref={menuFooterRef}
+            className="flex flex-col items-start gap-4 sm:flex-row sm:items-end sm:justify-between"
+          >
             <Slogan animateOnMount={false} />
             <a
               ref={emailRef}
               href={`mailto:${site.email}`}
-              className="inline-block break-all leading-flat text-sm sm:text-base"
+              className="inline-flex min-h-11 items-center break-all py-2 leading-flat text-sm sm:min-h-0 sm:py-0 sm:text-base"
             >
               {site.email}
             </a>

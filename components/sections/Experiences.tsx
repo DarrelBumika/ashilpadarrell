@@ -21,8 +21,9 @@ const Experiences = () => {
 
       const headingWords =
         section.querySelectorAll<HTMLElement>("[data-reveal-word]");
-      const rows =
-        section.querySelectorAll<HTMLElement>("[data-experience-row]");
+      const rows = section.querySelectorAll<HTMLElement>(
+        "[data-experience-row]"
+      );
       if (!headingWords.length || !rows.length) return;
 
       const motion = gsap.matchMedia();
@@ -79,15 +80,15 @@ const Experiences = () => {
       ref={sectionRef}
       id="experience"
       aria-labelledby="experiences-title"
-      className="relative z-10 flex min-h-dvh w-full scroll-mt-24 flex-col justify-center items-center bg-white px-8 py-24 text-black sm:py-32"
+      className="relative z-10 flex min-h-dvh w-full scroll-mt-24 flex-col justify-center items-center bg-white px-5 py-20 text-black sm:px-8 sm:py-32"
     >
-      <div className="flex w-fit flex-col gap-10 sm:gap-14">
+      <div className="flex w-full max-w-full flex-col gap-10 sm:gap-14 lg:w-fit">
         <h2
           id="experiences-title"
           aria-label={toPlainText(experiencesHeading)}
-          className="max-w-full font-light text-[clamp(2rem,9vw,8rem)] leading-flat tracking-tightest"
+          className="max-w-full font-light text-display leading-flat tracking-tightest"
         >
-          <WordReveal lines={experiencesHeading} />
+          <WordReveal lines={experiencesHeading} nowrap={false} />
         </h2>
 
         <ol className="flex w-full flex-col">
@@ -98,7 +99,7 @@ const Experiences = () => {
             >
               <div
                 data-experience-row
-                className="grid gap-2 py-6 will-change-transform sm:grid-cols-[1fr_auto] sm:items-baseline sm:gap-8 sm:py-8"
+                className="grid gap-2 py-5 will-change-transform sm:grid-cols-[1fr_auto] sm:items-baseline sm:gap-8 sm:py-8"
               >
                 <div className="flex flex-col gap-1">
                   <h3 className="text-2xl font-light leading-flat tracking-tightest sm:text-4xl">

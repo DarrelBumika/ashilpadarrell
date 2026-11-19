@@ -15,9 +15,9 @@ const Hero = () => {
       <p
         ref={headingRef}
         aria-label={toPlainText(heroLines)}
-        className="text-9xl font-light py-4 pe-4 text-black text-start leading-flat tracking-tightest overflow-hidden z-1"
+        className="z-1 overflow-hidden py-2 pe-2 text-start text-hero font-light leading-flat tracking-tightest text-black sm:py-4 sm:pe-4"
       >
-        <WordReveal lines={heroLines} />
+        <WordReveal lines={heroLines} nowrap={false} />
       </p>
     </div>
   );

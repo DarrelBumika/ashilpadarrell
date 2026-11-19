@@ -19,6 +19,16 @@
 @theme {
   --leading-flat: 0.8;
   --tracking-tightest: -0.06em;
+
+  /*
+   * Fluid display scale. Each size bottoms out at the 320px viewport and only
+   * reaches its desktop ceiling once there is room for it, so headings never
+   * need a breakpoint jump or overflow a phone.
+   */
+  --text-display: clamp(2rem, 9vw, 8rem);
+  --text-display-xl: clamp(2rem, 9vw, 16rem);
+  --text-hero: clamp(2.25rem, 9.5vw, 8rem);
+  --text-wordmark: clamp(3rem, 17.8vw, 16rem);
 }
 
 @media (prefers-color-scheme: dark) {

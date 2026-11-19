@@ -9,9 +9,8 @@ import { useSiteFooter } from "@hooks/useSiteFooter";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-// Matches the p-8 gutter used by the header and footer.
-const PAD = 32;
-
+// The gutter is read from the layer itself so mobile and desktop padding
+// cannot drift apart from the header and footer.
 const FloatingSlogan = () => {
   const layerRef = useRef<HTMLDivElement>(null);
   const sloganRef = useRef<HTMLDivElement>(null);
@@ -29,11 +28,12 @@ const FloatingSlogan = () => {
         const height = slogan.offsetHeight;
         const viewport = window.innerHeight;
         const footerTop = footer.getBoundingClientRect().top;
+        const pad = parseFloat(getComputedStyle(layer).paddingTop) || 0;
 
         // The layer sits at the top-left by default; the offset parks it at
         // the bottom-left until the footer's top edge reaches it.
-        const restY = Math.max(0, viewport - PAD * 2 - height);
-        const restTop = viewport - PAD - height;
+        const restY = Math.max(0, viewport - pad * 2 - height);
+        const restTop = viewport - pad - height;
 
         setY(
           footerTop >= restTop
@@ -75,7 +75,7 @@ const FloatingSlogan = () => {
   return (
     <div
       ref={layerRef}
-      className="pointer-events-none fixed inset-x-0 top-0 z-30 p-8 will-change-transform"
+      className="pointer-events-none fixed inset-x-0 top-0 z-30 hidden p-5 will-change-transform sm:p-8 lg:block"
     >
       <div ref={sloganRef} className="w-fit">
         <Slogan />
