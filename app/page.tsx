@@ -1,4 +1,5 @@
 import About from "@components/sections/About";
+import Experiences from "@components/sections/Experiences";
 import FloatingSlogan from "@components/ui/FloatingSlogan";
 import Footer from "@components/sections/Footer";
 import Header from "@components/sections/Header";
@@ -19,6 +20,7 @@ export default async function Home() {
       <HomeStage />
       <About />
       <SelectedWorks />
+      <Experiences />
       <FloatingSlogan />
       <Footer year={year} />
     </main>
