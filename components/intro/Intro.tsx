@@ -83,7 +83,7 @@ const Intro = () => {
         aria-hidden
         className="fixed inset-0 z-[60] flex items-center justify-center bg-white px-6 text-black will-change-transform"
       >
-        <p className="text-[clamp(2.5rem,6vw,8rem)] font-light leading-flat tracking-tightest">
+        <p className="text-[clamp(2rem,6vw,8rem)] font-light leading-flat tracking-tightest">
           <span className="block overflow-hidden pt-4 pb-[0.06em]">
             <span
               ref={nameRef}

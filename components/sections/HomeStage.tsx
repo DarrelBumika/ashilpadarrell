@@ -55,22 +55,23 @@ const HomeStage = () => {
     <section
       ref={sectionRef}
       id="home"
-      className="relative h-screen w-full overflow-hidden"
+      className="relative h-dvh w-full overflow-hidden"
     >
       <div
         data-hero-stage
         className="relative h-full w-full will-change-transform"
       >
-        <div className="flex h-full w-full flex-col items-center justify-center p-8">
+        <div className="flex h-full w-full flex-col items-center justify-center p-5 sm:p-8">
           <Hero />
+          <Image
+            src={portrait}
+            alt={`portrait of ${site.fullName}`}
+            priority
+            fetchPriority="high"
+            sizes="(max-width: 1279px) 45vw, 50vw"
+            className="pointer-events-none relative mx-auto mt-6 h-[34dvh] w-auto object-contain object-top mask-[linear-gradient(to_bottom,black_20%,transparent)] [-webkit-mask-image:linear-gradient(to_bottom,black_20%,transparent)] md:h-[38dvh] xl:absolute xl:top-0 xl:right-0 xl:mt-0 xl:h-full xl:object-cover"
+          />
         </div>
-        <Image
-          src={portrait}
-          alt={`portrait of ${site.fullName}`}
-          priority
-          sizes="(max-width: 768px) 100vw, 50vw"
-          className="pointer-events-none absolute top-0 right-0 h-screen w-auto object-cover mask-[linear-gradient(to_bottom,black_20%,transparent)] [-webkit-mask-image:linear-gradient(to_bottom,black_20%,transparent)]"
-        />
       </div>
     </section>
   );

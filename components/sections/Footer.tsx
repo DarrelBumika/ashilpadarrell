@@ -112,17 +112,21 @@ const Footer = ({ year }: { year: number }) => {
     <footer
       id="site-footer"
       ref={attachFooter}
-      className="relative z-20 flex flex-col justify-between gap-12 min-h-dvh w-full overflow-hidden bg-black px-5 py-6 text-sm text-white sm:px-8 sm:py-8"
+      className="relative z-20 flex min-h-dvh w-full flex-col justify-between gap-10 overflow-hidden bg-black px-5 py-6 text-sm text-white sm:gap-12 sm:px-8 sm:py-8"
     >
-      <div className="w-full flex justify-end gap-8 sm:gap-32">
-        <div className="flex flex-col items-end gap-4 text-end text-2xl sm:text-4xl">
+      <div className="flex w-full justify-end gap-3 sm:gap-32">
+        <div className="flex flex-col items-end gap-0.5 text-end text-2xl sm:gap-4 sm:text-4xl">
           {site.socials.map((social) => (
             <span
               key={social.href}
               data-footer-link
               className="inline-flex will-change-transform"
             >
-              <TextButton href={social.href} external>
+              <TextButton
+                href={social.href}
+                external
+                className="py-2.5 sm:py-0"
+              >
                 {social.label}
               </TextButton>
             </span>
@@ -130,7 +134,7 @@ const Footer = ({ year }: { year: number }) => {
         </div>
         <nav
           aria-label="footer"
-          className="flex flex-col items-end gap-4 text-end text-2xl sm:text-4xl"
+          className="flex flex-col items-end gap-0.5 text-end text-2xl sm:gap-4 sm:text-4xl"
         >
           {sections.map((link) => (
             <span
@@ -138,27 +142,33 @@ const Footer = ({ year }: { year: number }) => {
               data-footer-link
               className="inline-flex will-change-transform"
             >
-              <TextButton href={link.href}>{link.label}</TextButton>
+              <TextButton href={link.href} className="py-2.5 sm:py-0">
+                {link.label}
+              </TextButton>
             </span>
           ))}
         </nav>
       </div>
 
-      <div className="w-full flex flex-col items-end gap-4 text-end text-2xl sm:text-4xl">
+      <div className="flex w-full flex-col items-end gap-0.5 text-end text-2xl sm:gap-4 sm:text-4xl">
         <span
           data-footer-link
           className="inline-flex max-w-full break-all will-change-transform"
         >
-          <TextButton href={`mailto:${site.email}`}>{site.email}</TextButton>
+          <TextButton href={`mailto:${site.email}`} className="py-2.5 sm:py-0">
+            {site.email}
+          </TextButton>
         </span>
         <span data-footer-link className="inline-flex will-change-transform">
-          <TextButton href={site.phone.href}>{site.phone.display}</TextButton>
+          <TextButton href={site.phone.href} className="py-2.5 sm:py-0">
+            {site.phone.display}
+          </TextButton>
         </span>
       </div>
 
       <div className="w-full flex flex-col gap-6 sm:flex-row sm:justify-between sm:items-end">
         {/* Fluid so the wordmark never runs past the viewport on phones. */}
-        <p className="text-[clamp(3rem,17.8vw,16rem)] leading-flat tracking-tightest font-light">
+        <p className="text-wordmark leading-flat tracking-tightest font-light">
           <WordReveal lines={wordmarkStacked} />
         </p>
         <p data-footer-copy className="text-sm text-white/50">

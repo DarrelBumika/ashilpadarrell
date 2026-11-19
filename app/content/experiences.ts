@@ -35,6 +35,7 @@ export const experiences: Experience[] = [
     role: "machine learning engineer",
     company: "bangkit academy",
     period: "aug 2024 — jan 2025",
-    summary: "developing and deploying machine learning models for various applications.",
-  }
+    summary:
+      "developing and deploying machine learning models for various applications.",
+  },
 ];
