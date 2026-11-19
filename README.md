@@ -65,9 +65,10 @@ app/
     home.ts         hero + slogan lines
     about.ts        about kicker + lines
     works.ts        works heading + project list
+    experiences.ts  experience heading + role list
 components/
   sections/         page sections: Header, HomeStage, Hero, About,
-                    SelectedWorks, Footer
+                    SelectedWorks, Experiences, Footer
   ui/               WordReveal, Slogan, FloatingSlogan, TextButton
   intro/            Intro overlay
   SiteFooterProvider.tsx

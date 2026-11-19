@@ -7,4 +7,5 @@ export const sections = [
   { label: "home", href: "#home" },
   { label: "about", href: "#about" },
   { label: "works", href: "#works" },
+  { label: "experience", href: "#experience" },
 ] as const;
